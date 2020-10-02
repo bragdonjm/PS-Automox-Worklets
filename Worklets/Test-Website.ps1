@@ -16,8 +16,8 @@ limitations under the License.
 Credits:
 Inspired by: Automox Employee
 
-Test website reachability
-Test website latency
+Test website reachability and latency
+
 
 #>
 
