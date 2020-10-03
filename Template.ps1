@@ -14,64 +14,25 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 Credits:
-Inspired by: Automox Employee
 
-Test website reachability and latency
 
 
 #>
 
 
 # We set Param here so -verbose comes online.
-# Change the $Target= to whatever you would like. 
+# Make sure Mandatory is False, or this will not work as a worklet
 
 Param(
   [
     parameter(
       Mandatory=$False,
       Position=0, 
-      HelpMessage='Specify the target website you wish to test.'
+      HelpMessage='Enter in help example here.'
     )
-  ][String]$target='https://console.automox.com/'
+  ][String]$example='example'
 
 )
-
-###################### Function Definitions ######################
-function test-website {
-  Param(
-    [
-      parameter(
-        Mandatory=$False,
-        Position=0, 
-        HelpMessage='Specify the target website you wish to test.'
-      )
-    ][String]$target='https://console.automox.com/'
-  )
-
-  Try {
-    $loadedIn = Measure-Command -Expression {
-      $response = Invoke-WebRequest -Uri $target
-    }  
-
-    
-    $return = @{}
-    $return.siteTested        = $target
-    $return.loadedInSeconds   = $([Math]::Round($loadedIn.TotalSeconds, 4))
-    $return.serverType        = $response.Headers.Server
-    $return.statusCode        = $response.StatusCode
-    $return.statusDescription =  $response.StatusDescription
-
-    return $return
-  }
-
-  Catch {
-    Throw $_.Exception.Message
-  }
-
-  Finally {
-  }
-
-}
 
 
 Try {
@@ -81,9 +42,6 @@ Try {
   $scriptName=$MyInvocation.MyCommand.Name
   Write-Verbose “$scriptName Initial Setup, Started running on $scriptStartTime”
 
-  $results = $(test-website -target $target)
-
-  return ConvertTo-Json -InputObject $results
 
 }
 
